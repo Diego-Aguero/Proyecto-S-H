@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://x6yytbu6beg4"]
+
+[ext_resource type="Script" path="res://Scripts/teleport_unlocker.gd" id="1_eic68"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xpymd"]
+size = Vector2(167, 182)
+
+[node name="TeleportUnlocker" type="Area2D" groups=["TeleportUnlocker"]]
+script = ExtResource("1_eic68")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["TeleportUnlocker"]]
+scale = Vector2(1.15, 1)
+shape = SubResource("RectangleShape2D_xpymd")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

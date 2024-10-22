@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://j4yv4vywfn0e"]
+
+[ext_resource type="Texture2D" uid="uid://23u84ln0onfa" path="res://icon.svg" id="1_7kli4"]
+[ext_resource type="Script" path="res://Scripts/check_point.gd" id="1_bbs0g"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eje0r"]
+radius = 22.0227
+
+[node name="CheckPoint" type="Node2D" groups=["Checkpoint"]]
+script = ExtResource("1_bbs0g")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(2.38419e-07, -1.81899e-12)
+scale = Vector2(0.203125, 0.203125)
+texture = ExtResource("1_7kli4")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_eje0r")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0.375001, -0.624999)
+scale = Vector2(1.6625, 1.6625)
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5uo4pfpdj74s"]
+
+[ext_resource type="Texture2D" uid="uid://bopnspmuc2ttr" path="res://Sprites/Ball.png" id="1_0cf7f"]
+[ext_resource type="Script" path="res://Scripts/dash_extender.gd" id="1_h7gho"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l0p8l"]
+radius = 11.0
+
+[node name="dash_extender" type="Node2D"]
+rotation = 0.602139
+script = ExtResource("1_h7gho")
+
+[node name="Area2D" type="Area2D" parent="." groups=["DashExtender"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_l0p8l")
+
+[node name="Ball" type="Sprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_0cf7f")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.5
+one_shot = true
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0.425284, 0.618792)
+rotation = -0.602139
+scale = Vector2(2.13815, 2.08103)
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

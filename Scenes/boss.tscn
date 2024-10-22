@@ -1,0 +1,86 @@
+[gd_scene load_steps=11 format=3 uid="uid://cqpyrqut6j555"]
+
+[ext_resource type="Script" path="res://Scripts/boss.gd" id="1_drrm6"]
+[ext_resource type="Texture2D" uid="uid://ccg4t6skanyv7" path="res://Sprites/Red Demon.png" id="2_68x2n"]
+[ext_resource type="Script" path="res://Scripts/finite_state_machine.gd" id="3_yyyrc"]
+[ext_resource type="PackedScene" uid="uid://drbb31gwmmrms" path="res://Scenes/bullet.tscn" id="6_dikgu"]
+[ext_resource type="Script" path="res://Scripts/idle.gd" id="37_koley"]
+[ext_resource type="Script" path="res://Scripts/shoot.gd" id="38_s7kra"]
+[ext_resource type="Script" path="res://Scripts/follow.gd" id="39_njanq"]
+[ext_resource type="Script" path="res://Scripts/dash.gd" id="40_oh3s2"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s6yyu"]
+radius = 12.6087
+height = 58.3333
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0a7kh"]
+radius = 22.3607
+
+[node name="Boss" type="CharacterBody2D"]
+collision_layer = 0
+script = ExtResource("1_drrm6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_68x2n")
+flip_h = true
+hframes = 4
+vframes = 8
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="FiniteStateMachine" type="Node2D" parent="."]
+script = ExtResource("3_yyyrc")
+
+[node name="Idle" type="Node2D" parent="FiniteStateMachine"]
+script = ExtResource("37_koley")
+
+[node name="Shoot" type="Node2D" parent="FiniteStateMachine"]
+script = ExtResource("38_s7kra")
+bullet_node = ExtResource("6_dikgu")
+
+[node name="Timer" type="Timer" parent="FiniteStateMachine/Shoot"]
+wait_time = 0.3
+
+[node name="Follow" type="Node2D" parent="FiniteStateMachine"]
+script = ExtResource("39_njanq")
+
+[node name="Dash" type="Node2D" parent="FiniteStateMachine"]
+script = ExtResource("40_oh3s2")
+
+[node name="Timer" type="Timer" parent="FiniteStateMachine/Dash"]
+wait_time = 0.5
+one_shot = true
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -1.0
+offset_top = 30.0
+offset_right = 3.0
+offset_bottom = 57.0
+value = 100.0
+
+[node name="HurtboxBoss" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxBoss"]
+position = Vector2(0, -3)
+scale = Vector2(2.3, 1.2)
+shape = SubResource("CapsuleShape2D_s6yyu")
+debug_color = Color(0.638586, 0.525584, 0, 0.42)
+
+[node name="Area2D" type="Area2D" parent="." groups=["HitboxEnemy"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_0a7kh")
+debug_color = Color(0.956863, 0, 0, 0.419608)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(2, -10)
+scale = Vector2(8.3, 7.65312)
+
+[connection signal="timeout" from="FiniteStateMachine/Shoot/Timer" to="FiniteStateMachine/Shoot" method="_on_timer_timeout"]
+[connection signal="timeout" from="FiniteStateMachine/Dash/Timer" to="FiniteStateMachine/Dash" method="_on_timer_timeout"]
+[connection signal="area_entered" from="HurtboxBoss" to="." method="_on_hurtbox_boss_area_entered"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

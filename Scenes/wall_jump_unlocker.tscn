@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bw3048dwcg0ve"]
+
+[ext_resource type="Script" path="res://Scripts/wall_jump_unlocker.gd" id="1_gywvl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j21t7"]
+size = Vector2(167, 182)
+
+[node name="WallJumpUnlocker" type="Area2D" groups=["WallJumpUnlocker"]]
+script = ExtResource("1_gywvl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["WallJumpUnlocker"]]
+scale = Vector2(1.15, 1)
+shape = SubResource("RectangleShape2D_j21t7")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

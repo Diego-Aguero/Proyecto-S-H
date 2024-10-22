@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://eoq3nluml2bt"]
+
+[ext_resource type="Script" path="res://Scripts/double_jump_unlocker.gd" id="1_r0rbh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rggnw"]
+size = Vector2(167, 182)
+
+[node name="DoubleJumpUnlocker" type="Area2D" groups=["DoubleJumpUnlocker"]]
+script = ExtResource("1_r0rbh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["DoubleJumpUnlocker"]]
+scale = Vector2(1.15, 1)
+shape = SubResource("RectangleShape2D_rggnw")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

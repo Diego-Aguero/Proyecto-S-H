@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://bsarg4g154d31"]
+
+[ext_resource type="Script" path="res://Scripts/ball.gd" id="1_2afjw"]
+[ext_resource type="Texture2D" uid="uid://bopnspmuc2ttr" path="res://Sprites/Ball.png" id="2_4go1a"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1kuvj"]
+radius = 8.75
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g466k"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dn5b2"]
+radius = 7.0
+
+[node name="Ball" type="RigidBody2D"]
+disable_mode = 2
+collision_layer = 2
+lock_rotation = true
+script = ExtResource("1_2afjw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 0
+scale = Vector2(0.8, 0.8)
+shape = SubResource("CircleShape2D_1kuvj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_4go1a")
+
+[node name="StuckUp" type="ShapeCast2D" parent="."]
+position = Vector2(0, -0.9)
+scale = Vector2(0.1, 0.1)
+shape = SubResource("CircleShape2D_g466k")
+target_position = Vector2(0, 0)
+
+[node name="StuckDown" type="ShapeCast2D" parent="."]
+position = Vector2(0, 1)
+scale = Vector2(0.11, 0.11)
+shape = SubResource("CircleShape2D_g466k")
+target_position = Vector2(0, 0)
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+scale = Vector2(2, 1)
+target_position = Vector2(0, 8)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_dn5b2")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

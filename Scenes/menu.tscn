@@ -1,0 +1,123 @@
+[gd_scene load_steps=9 format=3 uid="uid://c2dv5q2nj1ngt"]
+
+[ext_resource type="Script" path="res://Scripts/menu.gd" id="1_ic3f6"]
+[ext_resource type="Texture2D" uid="uid://bye40ufnkrfyo" path="res://logo_blossom_games.png" id="2_shkum"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u5oxw"]
+bg_color = Color(0.396731, 0.151866, 0.587158, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vrei4"]
+bg_color = Color(0.150576, 0.0366462, 0.238199, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r1le3"]
+bg_color = Color(0.286275, 0.0980392, 0.431373, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o7tg4"]
+bg_color = Color(0.355657, 0.131042, 0.529541, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ebjpc"]
+bg_color = Color(0.150576, 0.0366462, 0.238199, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ktrfs"]
+bg_color = Color(0.286275, 0.0980392, 0.431373, 1)
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ic3f6")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.130466, 0.046262, 0.220375, 0.529412)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.302
+anchor_top = 0.361
+anchor_right = 0.7
+anchor_bottom = 0.5
+offset_left = -0.404022
+offset_top = 0.0719757
+offset_right = 0.0999756
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 70
+text = "Proyecto S&D"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.396
+anchor_top = 0.548
+anchor_right = 0.604
+anchor_bottom = 0.759
+offset_left = 0.807983
+offset_top = -0.104034
+offset_right = 0.191956
+offset_bottom = 0.167969
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Play" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+theme_override_styles/hover = SubResource("StyleBoxFlat_u5oxw")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_vrei4")
+theme_override_styles/normal = SubResource("StyleBoxFlat_r1le3")
+text = "Jugar
+"
+
+[node name="Quit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 25
+theme_override_styles/hover = SubResource("StyleBoxFlat_o7tg4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ebjpc")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ktrfs")
+text = "Salir
+"
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.03
+anchor_top = 0.946
+anchor_right = 0.125
+anchor_bottom = 0.981
+offset_left = 0.439999
+offset_top = -0.00799561
+offset_right = 1.0
+offset_bottom = 0.311951
+text = "Prototipo v1.0"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.878
+anchor_top = 0.824
+anchor_right = 0.967
+anchor_bottom = 1.0
+offset_left = 0.543945
+offset_top = 0.0479736
+offset_right = 0.0158691
+
+[node name="Button" type="Button" parent="VBoxContainer2"]
+layout_mode = 2
+icon = ExtResource("2_shkum")
+flat = true
+icon_alignment = 1
+
+[connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="VBoxContainer2/Button" to="." method="_on_button_pressed"]

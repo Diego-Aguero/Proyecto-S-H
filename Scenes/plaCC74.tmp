@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://dxbbd4gi67c6e"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_bb38g"]
+[ext_resource type="Texture2D" uid="uid://cqypec27la4s8" path="res://Sprites/SpriteSheetPlayer1.png" id="1_xfi2w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dbxk1"]
+size = Vector2(16, 27)
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+platform_wall_layers = 1
+script = ExtResource("1_bb38g")
+speed = 160
+gravity = 500
+jump_force = 260
+dash_force_x = 300
+dash_force_y = -300
+unlocked_dash = true
+can_dash = true
+dash_deceleration = -100
+unlocked_double_jump = true
+unlocked_wall_jump = true
+wall_jump_pushback = 1000
+wall_slide_speed = 150
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_xfi2w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_dbxk1")
+metadata/_edit_lock_ = true
+
+[node name="Dash" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="CanDash" type="Timer" parent="."]
+one_shot = true
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(9, 0)
+
+[node name="glued_in_wall" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[connection signal="timeout" from="Dash" to="." method="_on_dash_timeout"]
+[connection signal="timeout" from="CanDash" to="." method="_on_can_dash_timeout"]
+[connection signal="timeout" from="glued_in_wall" to="." method="_on_glued_in_wall_timeout"]

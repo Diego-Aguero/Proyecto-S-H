@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://wcm2ral3k28a"]
+
+[ext_resource type="Script" path="res://Scripts/basic_enemy.gd" id="1_qktv2"]
+[ext_resource type="Texture2D" uid="uid://eoniylyf84cr" path="res://Sprites/player_apuntando_caminando1.png" id="2_80uqx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cv3t6"]
+size = Vector2(18, 27)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_60fse"]
+size = Vector2(22, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j2b6f"]
+size = Vector2(18, 27)
+
+[node name="BasicEnemy" type="CharacterBody2D"]
+collision_layer = 4
+script = ExtResource("1_qktv2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.599057, 0, 0, 1)
+texture = ExtResource("2_80uqx")
+
+[node name="HitboxEnemy" type="Area2D" parent="." groups=["HitboxEnemy"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxEnemy"]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_cv3t6")
+debug_color = Color(0.47451, 0, 0, 0.419608)
+
+[node name="HurtboxEnemy" type="Area2D" parent="." groups=["DashExtender"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxEnemy"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_60fse")
+debug_color = Color(0.627451, 0.533333, 0, 0.419608)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_j2b6f")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-4.76837e-07, 2)
+scale = Vector2(1.9, 1.7)
+
+[connection signal="area_entered" from="HurtboxEnemy" to="." method="_on_hurtbox_enemy_area_entered"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

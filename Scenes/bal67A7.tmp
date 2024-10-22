@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bsarg4g154d31"]
+
+[ext_resource type="Script" path="res://Scripts/ball.gd" id="1_2afjw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1kuvj"]
+radius = 5.0
+
+[node name="Ball" type="RigidBody2D"]
+disable_mode = 2
+collision_layer = 2
+script = ExtResource("1_2afjw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 0
+shape = SubResource("CircleShape2D_1kuvj")
